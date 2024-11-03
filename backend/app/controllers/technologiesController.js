@@ -1,23 +1,20 @@
-const Technology = require('../models/technology.js');
+const Technology = require('../models/technology');
 
+const getAllTechnologies = async (req, res) => {
+  try {
+    const technologies = await Technology.find({});
 
-
-const technoController = {
-
-    // GET all technologies
-
-    getAllTechnologies: async (_req, res) => {
-        try {
-            const technologies = await Technology.find();
-            if (!technologies) {
-                return res.status(404).json({ error: 'Technologies not found' });
-            }
-            res.status(200).json(technologies);
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Failed to get technologies' });
-        }
+    if (!technologies || technologies.length === 0) {
+      console.log('Aucune technologie trouvée');
     }
-}
 
-module.exports = technoController;
+    res.json(technologies);
+  } catch (error) {
+    console.error('Erreur:', error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  getAllTechnologies,
+};

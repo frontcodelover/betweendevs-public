@@ -1,13 +1,16 @@
 const mongoose = require('../database');
 
-const technologySchema = new mongoose.Schema([{
+// Correction du schéma
+const technologySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
     unique: true
   }
-}]);
+}, { 
+  collection: 'technology' // Spécifier explicitement le nom de la collection
+});
 
-const Technology = mongoose.model('Technology', technologySchema, 'technology');
+const Technology = mongoose.model('Technology', technologySchema);
 
 module.exports = Technology;

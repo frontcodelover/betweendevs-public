@@ -97,7 +97,13 @@ io.on('connection', (socket) => {
 // We use .none() to specify when file is not expected, only classic inputs.
 app.use(bodyParser.none());
 
-app.use(cors());
+app.use(cors(
+	{
+		origin: '*',
+		methods: ['GET', 'POST', 'PUT', 'DELETE'],
+		allowedHeaders: ['Content-Type', 'Authorization'],
+	},
+));
 app.use(express.urlencoded({ extended: true }));
 
 // Set up the server in the Express application
